@@ -21,7 +21,7 @@ const Cta = () => {
 					height={12}
 					className='invert'
 				/>
-				<Link href='/companions/new'>
+				<Link href='/learning-modules/new'>
 					<p>Build a New Companion</p>
 				</Link>
 			</button>
