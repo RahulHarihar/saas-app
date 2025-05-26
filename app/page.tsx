@@ -1,6 +1,7 @@
 import CallToAction from "@/components/CallToAction";
 import Module from "@/components/Module";
 import ModuleList from "@/components/ModuleList";
+import { recentSessions } from "@/constants";
 
 import React from "react";
 
@@ -11,9 +12,9 @@ const Page = () => {
 			<section className='home-section'>
 				<Module
 					id='123'
-					name='Neura the Brainly Explorer'
-					topic='Neural Networks of the Brain'
-					subject='Neuroscience'
+					name='Introduction to AI'
+					topic='Artificial Intelligence'
+					subject='Computer Science'
 					duration={45}
 					color='#FF5733'
 				/>
@@ -36,7 +37,11 @@ const Page = () => {
 			</section>
 
 			<section className='home-section'>
-				<ModuleList />
+				<ModuleList
+					title='Recently Completed Modules'
+					modules={recentSessions}
+					classNames='w-2/3 max-lg:w-full'
+				/>
 				<CallToAction />
 			</section>
 		</main>
