@@ -7,13 +7,14 @@ import { z } from "zod";
 import {
 	Form,
 	FormControl,
-	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
 } from "@/components/ui/form";
+
 import { Input } from "@/components/ui/input";
+
 import {
 	Select,
 	SelectContent,
@@ -70,7 +71,7 @@ const CompanionForm = () => {
 										className='input'
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-red-500' />
 							</FormItem>
 						)}
 					/>
@@ -100,7 +101,7 @@ const CompanionForm = () => {
 										</SelectContent>
 									</Select>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-red-500' />
 							</FormItem>
 						)}
 					/>
@@ -117,7 +118,7 @@ const CompanionForm = () => {
 										className='input'
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-red-500' />
 							</FormItem>
 						)}
 					/>
@@ -141,7 +142,7 @@ const CompanionForm = () => {
 										</SelectContent>
 									</Select>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-red-500' />
 							</FormItem>
 						)}
 					/>
@@ -165,7 +166,7 @@ const CompanionForm = () => {
 										</SelectContent>
 									</Select>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-red-500' />
 							</FormItem>
 						)}
 					/>
@@ -183,7 +184,7 @@ const CompanionForm = () => {
 										className='input'
 									/>
 								</FormControl>
-								<FormMessage />
+								<FormMessage className='text-red-500' />
 							</FormItem>
 						)}
 					/>
