@@ -10,6 +10,8 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				cta: "#1C2238",
+				"cta-gold": "#FFD265",
 				background: "hsl(var(--background))",
 				foreground: "hsl(var(--foreground))",
 				card: {
