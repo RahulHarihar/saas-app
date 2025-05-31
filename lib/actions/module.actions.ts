@@ -48,6 +48,23 @@ export const getAllModules = async ({
 	return modules;
 };
 
+export const getModule = async (id: string) => {
+	const supabase = createSupabaseClient();
+
+	const { data, error } = await supabase
+		.from("modules")
+		.select()
+		.eq("id", id)
+		.single();
+
+	if (error) {
+		console.error(error.message);
+		return null;
+	}
+
+	return [0];
+};
+
 export const addBookmark = async (companionId: string, path: string) => {
 	const { userId } = await auth();
 	if (!userId) return;
