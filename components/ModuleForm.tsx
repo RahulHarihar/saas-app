@@ -25,6 +25,8 @@ import {
 import { subjects } from "@/constants";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "./ui/button";
+import { createModule } from "@/lib/actions/module.actions";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
 	name: z.string().min(1, { message: "Companion is required." }),
@@ -49,7 +51,14 @@ const CompanionForm = () => {
 	});
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		console.log(values);
+		const module = await createModule(values);
+
+		if (module) {
+			redirect(`/learning-modules/${module.id}`);
+		} else {
+			console.log("Failed to create a module.");
+			redirect("/");
+		}
 	};
 
 	return (
