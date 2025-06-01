@@ -11,13 +11,14 @@ const Page = () => {
 			<h1> Popular Modules </h1>
 			<section className='home-section'>
 				<Module
-					id='123'
+					id='a9e9c6f6-1234-4f2e-a6c7-12ab34cd56ef'
 					name='Introduction to AI'
 					topic='Artificial Intelligence'
 					subject='Computer Science'
 					duration={45}
 					color='#FF5733'
 				/>
+
 				<Module
 					id='456'
 					name='Quantum Physics Simplified'
