@@ -51,18 +51,18 @@ export const getAllModules = async ({
 export const getModule = async (id: string) => {
 	const supabase = createSupabaseClient();
 
-	const { data, error } = await supabase
-		.from("modules")
-		.select()
-		.eq("id", id)
-		.single();
+	const { data, error } = await supabase.from("modules").select().eq("id", id);
 
 	if (error) {
 		console.error(error.message);
-		return null;
+		return null; // or handle error differently
 	}
 
-	return [0];
+	if (!data) {
+		return null; // Handle case where data is null or empty
+	}
+
+	return data[0];
 };
 
 export const addBookmark = async (companionId: string, path: string) => {
