@@ -3,7 +3,7 @@
 import { cn, getSubjectColor } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 
@@ -27,7 +27,16 @@ const ModuleComponent = ({
 	const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
 	const [isSpeaking, setIsSpeaking] = useState(false);
 
-	const lottieRef = React.useRef<LottieRefCurrentProps>(null);
+	const lottieRef = useRef<LottieRefCurrentProps>(null);
+	useEffect(() => {
+		if (lottieRef) {
+			if (isSpeaking) {
+				lottieRef.current?.play();
+			} else {
+				lottieRef.current?.stop();
+			}
+		}
+	}, [isSpeaking, lottieRef]);
 
 	useEffect(() => {
 		const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
@@ -41,16 +50,6 @@ const ModuleComponent = ({
 		const onSpeechEnd = () => setIsSpeaking(false);
 
 		const onError = (error: Error) => console.log("Error", error);
-
-		useEffect(() => {
-			if (lottieRef) {
-				if (isSpeaking) {
-					lottieRef.current?.play();
-				} else {
-					lottieRef.current?.stop();
-				}
-			}
-		}, [isSpeaking, lottieRef]);
 
 		vapi.on("call-start", onCallStart);
 		vapi.on("call-end", onCallEnd);
@@ -70,7 +69,7 @@ const ModuleComponent = ({
 	}, []);
 	return (
 		<section className='flex flex-col h-[70vh]'>
-			<section className='flex- gap-8 max-sm:flex-col'>
+			<section className='flex gap-8 max-sm:flex-col'>
 				<div className='companion-section'>
 					<div
 						className='companion-avatar'
@@ -107,6 +106,20 @@ const ModuleComponent = ({
 						</div>
 					</div>
 					<p className='font-bold text-2xl'>{name}</p>
+				</div>
+
+				<div className='user-section'>
+					<div className='user-avatar'>
+						<Image
+							src={userImage}
+							alt={userName}
+							width={130}
+							height={130}
+							className='rounded-lg'
+						/>
+						<p className='font-bold text-2xl'>{userName}</p>
+					</div>
+					
 				</div>
 			</section>
 		</section>
