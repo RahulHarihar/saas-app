@@ -9,24 +9,14 @@ interface ModuleSessionPageProps {
 	params: Promise<{ id: string }>;
 }
 
-// Define the Module interface based on expected properties
-interface Module {
-	id: string;
-	name: string;
-	subject: string; // Adjust to enum if using Subject from index.d.ts
-	title: string;
-	topic: string;
-	duration: string; // Adjust type if duration is a number or specific format
-}
-
 const LearningSession = async ({ params }: ModuleSessionPageProps) => {
 	const { id } = await params;
-	const module = await getModule(id); // Get module first
+	const module = await getModule(id);
 	const user = await currentUser();
 
 	if (!user) redirect("/sign-in");
 
-	if (!module) redirect("/learning-modules"); // Check for null before destructuring
+	if (!module) redirect("/learning-modules");
 
 	// Destructure only if module exists
 	const { name, subject, title, topic, duration } = module;
@@ -69,7 +59,12 @@ const LearningSession = async ({ params }: ModuleSessionPageProps) => {
 					</span>
 				</div>
 			</article>
-			<ModuleComponent />
+			<ModuleComponent
+				{...module}
+				moduleId={id}
+				userName={user.firstName!}
+				userImage={user.imageUrl!}
+			/>
 		</main>
 	);
 };
