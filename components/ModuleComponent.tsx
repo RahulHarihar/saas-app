@@ -40,6 +40,8 @@ const ModuleComponent = ({
 	}, [isSpeaking, lottieRef]);
 
 	useEffect(() => {
+		if (!vapi) return;
+
 		const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
 
 		const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
@@ -60,6 +62,7 @@ const ModuleComponent = ({
 		vapi.on("speech-end", onSpeechEnd);
 
 		return () => {
+			if (!vapi) return;
 			vapi.off("call-start", onCallStart);
 			vapi.off("call-end", onCallEnd);
 			vapi.off("message", onMessage);
@@ -70,12 +73,18 @@ const ModuleComponent = ({
 	}, []);
 
 	const toggleMicrophone = () => {
+		if (!vapi) return;
 		const isMuted = vapi.isMuted();
 		vapi.setMuted(!isMuted);
 		setIsMuted(!isMuted);
 	};
 
 	const handleCall = async () => {
+		if (!vapi) {
+			console.error("Vapi is not initialized.");
+			return;
+		}
+
 		setCallStatus(CallStatus.CONNECTING);
 
 		const assistantOverrides = {
@@ -87,12 +96,12 @@ const ModuleComponent = ({
 			clientMessages: ["transcript"],
 			serverMessages: [],
 		};
-
-		//@ts-expect-error
+		// @ts-expect-error
 		vapi.start(configureAssistant(voice, style), assistantOverrides);
 	};
 
 	const handleDisconnect = () => {
+		if (!vapi) return;
 		setCallStatus(CallStatus.FINISHED);
 		vapi.stop();
 	};
