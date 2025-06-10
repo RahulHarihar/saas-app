@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, { useEffect, useState, useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
+import { SystemMessage } from "@vapi-ai/web/dist/api";
 
 enum CallStatus {
 	INACTIVE = "INACTIVE",
@@ -27,6 +28,7 @@ const ModuleComponent = ({
 	const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
 	const [isSpeaking, setIsSpeaking] = useState(false);
 	const [isMuted, setIsMuted] = useState(false);
+	const [messages, setMessages] = useState<SavedMessage[]>([]);
 
 	const lottieRef = useRef<LottieRefCurrentProps>(null);
 	useEffect(() => {
@@ -46,7 +48,12 @@ const ModuleComponent = ({
 
 		const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
 
-		const onMessage = () => {};
+		const onMessage = (message: Message) => {
+			if (message.type === "transcript" && message.transcriptType === "final") {
+				const newMessage = { role: message.role, content: message.transcript };
+				setMessages((prev) => [newMessage, ...prev]);
+			}
+		};
 
 		const onSpeechStart = () => setIsSpeaking(true);
 
@@ -190,7 +197,25 @@ const ModuleComponent = ({
 			</section>
 
 			<section className='transcipt'>
-				<div className='transcript-message no-scrollbar'>Messages</div>
+				<div className='transcript-message no-scrollbar'>
+					 {" "}
+					{messages.map((message, index) => {
+						if (message.role === "assistant") {
+							return (
+								<p key={index} className='max-sm:text-sm'>
+									{name.split("")[0].replace(/[.,]/g, "")}: {message.content}
+									{message.content}
+								</p>
+							);
+						} else {
+							return (
+								<p key={index} className='text-primary max-sm:text-sm'>
+									{userName}:{message.content}
+								</p>
+							);
+						}
+					})}
+				</div>
 				<div className='transcript-fade' />
 			</section>
 		</section>
