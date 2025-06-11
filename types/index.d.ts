@@ -71,7 +71,7 @@ interface SavedMessage {
 }
 
 interface ModuleComponentProps {
-	companionId: string;
+	moduleId: string;
 	subject: string;
 	topic: string;
 	name: string;
