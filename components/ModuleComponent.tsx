@@ -7,6 +7,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 import { SystemMessage } from "@vapi-ai/web/dist/api";
+import { addToSessionHistory } from "@/lib/actions/module.actions";
 
 enum CallStatus {
 	INACTIVE = "INACTIVE",
@@ -16,7 +17,7 @@ enum CallStatus {
 }
 
 const ModuleComponent = ({
-	// moduleId,
+	moduleId,
 	subject,
 	topic,
 	name,
@@ -46,7 +47,10 @@ const ModuleComponent = ({
 
 		const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
 
-		const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
+		const onCallEnd = () => {
+			setCallStatus(CallStatus.FINISHED);
+			addToSessionHistory(moduleId)
+		}
 
 		const onMessage = (message: Message) => {
 			if (message.type === "transcript" && message.transcriptType === "final") {
