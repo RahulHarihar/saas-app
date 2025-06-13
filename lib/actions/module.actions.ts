@@ -104,6 +104,18 @@ export const getUserSessions = async (userId: string, limit: 10) => {
 	return data.map(({ modules }) => modules);
 };
 
+export const getUserModules = async (userId: string) => {
+	const supabase = createSupabaseClient();
+	const { data, error } = await supabase
+		.from("modules")
+		.select()
+		.eq("author", userId);
+
+	if (error) throw new Error(error.message);
+
+	return data;
+};
+
 export const addBookmark = async (companionId: string, path: string) => {
 	const { userId } = await auth();
 	if (!userId) return;
