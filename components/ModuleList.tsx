@@ -31,8 +31,8 @@ const ModuleList = ({ title, modules, classNames }: ModuleListProps) => {
 					</TableRow>
 				</TableHeader>
 				<TableBody>
-					{modules?.map(({ id, subject, name, topic, duration }) => (
-						<TableRow key={id}>
+					{modules?.map(({ id, subject, name, topic, duration }, index) => (
+						<TableRow key={`${id}-${index}`}>
 							<TableCell>
 								<Link href={`/learning-modules/${id}`}>
 									<div className='flex items-center gap-2'>
