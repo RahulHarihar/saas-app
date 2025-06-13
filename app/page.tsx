@@ -1,46 +1,32 @@
 import CallToAction from "@/components/CallToAction";
 import Module from "@/components/Module";
 import ModuleList from "@/components/ModuleList";
-import { recentSessions } from "@/constants";
+// import { recentSessions } from "@/constants";
+import { getAllModules, getRecentSessions } from "@/lib/actions/module.actions";
+import { getSubjectColor } from "@/lib/utils";
 
 import React from "react";
 
-const Page = () => {
+const Page = async () => {
+	const modules = await getAllModules({ limit: 3 });
+	const recentSessionsModules = await getRecentSessions(10);
 	return (
 		<main>
 			<h1> Popular Modules </h1>
 			<section className='home-section'>
-				<Module
-					id='a9e9c6f6-1234-4f2e-a6c7-12ab34cd56ef'
-					name='Introduction to AI'
-					topic='Artificial Intelligence'
-					subject='Computer Science'
-					duration={45}
-					color='#FF5733'
-				/>
-
-				<Module
-					id='456'
-					name='Quantum Physics Simplified'
-					topic='Quantum Physics '
-					subject='Physics'
-					duration={60}
-					color='#4CAF50'
-				/>
-				<Module
-					id='789'
-					name='Machine Learning Basics'
-					topic='Machine Learning'
-					subject='Computer Science'
-					duration={30}
-					color='#2196F3'
-				/>
+				{modules.map((module) => (
+					<Module
+						key={module.id}
+						{...module}
+						color={getSubjectColor(module.subject)}
+					/>
+				))}
 			</section>
 
 			<section className='home-section'>
 				<ModuleList
 					title='Recently Completed Modules'
-					modules={recentSessions}
+					modules={recentSessionsModules}
 					classNames='w-2/3 max-lg:w-full'
 				/>
 				<CallToAction />
