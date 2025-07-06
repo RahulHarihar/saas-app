@@ -51,10 +51,10 @@ const CompanionForm = () => {
 	});
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		const module = await createModule(values);
+		const createdModule = await createModule(values);
 
-		if (module) {
-			redirect(`/learning-modules/${module.id}`);
+		if (createdModule) {
+			redirect(`/learning-modules/${createdModule.id}`);
 		} else {
 			console.log("Failed to create a module.");
 			redirect("/");
@@ -62,7 +62,7 @@ const CompanionForm = () => {
 	};
 
 	return (
-		<div className='flex items-center justify-center '>
+		<div className='flex items-center justify-center'>
 			<Form {...form}>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
@@ -101,8 +101,8 @@ const CompanionForm = () => {
 										<SelectContent className='bg-white text-black'>
 											{subjects.map((subject) => (
 												<SelectItem
-													value={subject}
 													key={subject}
+													value={subject}
 													className='capitalize'>
 													{subject}
 												</SelectItem>
@@ -122,7 +122,7 @@ const CompanionForm = () => {
 								<FormLabel>What should the module help you with?</FormLabel>
 								<FormControl>
 									<Textarea
-										placeholder='Ex. Derivates & Integrals'
+										placeholder='Ex. Derivatives & Integrals'
 										{...field}
 										className='input'
 									/>
@@ -198,7 +198,7 @@ const CompanionForm = () => {
 						)}
 					/>
 					<Button variant='black' className='w-full'>
-						  Build your module
+						Build your module
 					</Button>
 				</form>
 			</Form>
