@@ -9,6 +9,12 @@ export default {
 	],
 	theme: {
 		extend: {
+			screens: {
+				"min-2xl": { min: "1536px" },
+				"max-sm": { max: "639px" },
+				"max-lg": { max: "1023px" },
+				"max-md": { max: "767px" },
+			},
 			colors: {
 				cta: "#1C2238",
 				"cta-gold": "#FFD265",
@@ -58,6 +64,28 @@ export default {
 				md: "calc(var(--radius) - 2px)",
 				sm: "calc(var(--radius) - 4px)",
 				"4xl": "2.5rem",
+			},
+			keyframes: {
+				"accordion-down": {
+					from: {
+						height: "0",
+					},
+					to: {
+						height: "var(--radix-accordion-content-height)",
+					},
+				},
+				"accordion-up": {
+					from: {
+						height: "var(--radix-accordion-content-height)",
+					},
+					to: {
+						height: "0",
+					},
+				},
+			},
+			animation: {
+				"accordion-down": "accordion-down 0.2s ease-out",
+				"accordion-up": "accordion-up 0.2s ease-out",
 			},
 		},
 	},

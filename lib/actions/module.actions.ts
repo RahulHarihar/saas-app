@@ -55,11 +55,11 @@ export const getModule = async (id: string) => {
 
 	if (error) {
 		console.error(error.message);
-		return null; // or handle error differently
+		return null;
 	}
 
 	if (!data) {
-		return null; // Handle case where data is null or empty
+		return null;
 	}
 
 	return data[0];
@@ -114,6 +114,36 @@ export const getUserModules = async (userId: string) => {
 	if (error) throw new Error(error.message);
 
 	return data;
+};
+
+export const newModulePermissions = async () => {
+	const { userId, has } = await auth();
+	const supabase = createSupabaseClient();
+
+	let limit = 0;
+
+	if (has({ plan: "pro" })) {
+		return true;
+	} else if (has({ feature: "lite" })) {
+		limit = 3;
+	} else if (has({ feature: "plus" })) {
+		limit = 10;
+	}
+
+	const { data, error } = await supabase
+		.from("modules")
+		.select("id", { count: "exact" })
+		.eq("author", userId);
+
+	if (error) throw new Error(error.message);
+
+	const moduleCount = data?.length;
+
+	if (moduleCount >= limit) {
+		return false;
+	} else {
+		return true;
+	}
 };
 
 export const addBookmark = async (companionId: string, path: string) => {
