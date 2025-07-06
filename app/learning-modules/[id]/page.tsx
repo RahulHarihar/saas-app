@@ -19,7 +19,7 @@ const LearningSession = async ({ params }: ModuleSessionPageProps) => {
 	if (!learningModule) redirect("/learning-modules");
 
 	// Destructure only if module exists
-	const { name, subject, title, topic, duration } = learningModule;
+	const { name, subject, topic, duration } = learningModule;
 
 	return (
 		<main className='container mx-auto px-4 py-8'>

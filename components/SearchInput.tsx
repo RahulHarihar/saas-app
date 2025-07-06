@@ -8,7 +8,7 @@ const SearchInput = () => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const query = searchParams.get("topic") || "";
+	// const query = searchParams.get("topic") || "";
 
 	const [searchQuery, setsearchQuery] = useState("");
 
@@ -20,7 +20,6 @@ const SearchInput = () => {
 					key: "topic",
 					value: searchQuery,
 				});
-
 				router.push(newUrl, { scroll: false });
 			} else {
 				if (pathname === "/learning-modules") {
@@ -28,11 +27,12 @@ const SearchInput = () => {
 						params: searchParams.toString(),
 						keysToRemove: ["topic"],
 					});
-
 					router.push(newUrl, { scroll: false });
 				}
 			}
 		}, 500);
+
+		return () => clearTimeout(delayDebounceFn);
 	}, [searchQuery, router, searchParams, pathname]);
 
 	return (
