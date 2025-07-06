@@ -6,7 +6,7 @@ import Image from "next/image";
 import React, { useEffect, useState, useRef } from "react";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
-import { SystemMessage } from "@vapi-ai/web/dist/api";
+// import { SystemMessage } from "@vapi-ai/web/dist/api";
 import { addToSessionHistory } from "@/lib/actions/module.actions";
 
 enum CallStatus {
@@ -49,8 +49,8 @@ const ModuleComponent = ({
 
 		const onCallEnd = () => {
 			setCallStatus(CallStatus.FINISHED);
-			addToSessionHistory(moduleId)
-		}
+			addToSessionHistory(moduleId);
+		};
 
 		const onMessage = (message: Message) => {
 			if (message.type === "transcript" && message.transcriptType === "final") {
@@ -107,7 +107,7 @@ const ModuleComponent = ({
 			clientMessages: ["transcript"],
 			serverMessages: [],
 		};
-		// @ts-expect-error
+		// @ts-expect-error - vapi.start typing incomplete
 		vapi.start(configureAssistant(voice, style), assistantOverrides);
 	};
 

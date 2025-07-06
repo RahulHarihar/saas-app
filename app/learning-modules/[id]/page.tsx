@@ -11,15 +11,15 @@ interface ModuleSessionPageProps {
 
 const LearningSession = async ({ params }: ModuleSessionPageProps) => {
 	const { id } = await params;
-	const module = await getModule(id);
+	const learningModule = await getModule(id);
 	const user = await currentUser();
 
 	if (!user) redirect("/sign-in");
 
-	if (!module) redirect("/learning-modules");
+	if (!learningModule) redirect("/learning-modules");
 
 	// Destructure only if module exists
-	const { name, subject, title, topic, duration } = module;
+	const { name, subject, title, topic, duration } = learningModule;
 
 	return (
 		<main className='container mx-auto px-4 py-8'>
@@ -60,7 +60,7 @@ const LearningSession = async ({ params }: ModuleSessionPageProps) => {
 				</div>
 			</article>
 			<ModuleComponent
-				{...module}
+				{...learningModule}
 				moduleId={id}
 				userName={user.firstName!}
 				userImage={user.imageUrl!}
