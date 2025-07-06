@@ -10,7 +10,7 @@ interface ModuleTypeProps {
 	color: string;
 }
 
-const Module = ({
+const LearningModule = ({
 	id,
 	name,
 	topic,
@@ -48,4 +48,4 @@ const Module = ({
 	);
 };
 
-export default Module;
+export default LearningModule;

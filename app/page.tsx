@@ -1,5 +1,5 @@
 import CallToAction from "@/components/CallToAction";
-import Module from "@/components/Module";
+import Module from "@/components/LearningModule";
 import ModuleList from "@/components/ModuleList";
 // import { recentSessions } from "@/constants";
 import { getAllModules, getRecentSessions } from "@/lib/actions/module.actions";
