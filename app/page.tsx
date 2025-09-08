@@ -6,6 +6,7 @@ import { getAllModules, getRecentSessions } from "@/lib/actions/module.actions";
 import { getSubjectColor } from "@/lib/utils";
 
 import React from "react";
+export const dynamic = "force-dynamic";
 
 const Page = async () => {
 	const modules = await getAllModules({ limit: 3 });
