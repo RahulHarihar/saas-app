@@ -1,3 +1,4 @@
+"use client";
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Bricolage_Grotesque } from "next/font/google";
