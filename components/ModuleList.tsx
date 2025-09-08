@@ -16,7 +16,7 @@ interface ModuleListProps {
 	modules?: Module[];
 	classNames?: string;
 }
-
+export const dynamic = "force-dynamic";
 const ModuleList = ({ title, modules, classNames }: ModuleListProps) => {
 	return (
 		<article className={cn("companion-list", classNames)}>
